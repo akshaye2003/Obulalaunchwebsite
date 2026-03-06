@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { m } from 'framer-motion';
 
-// March 6th 5pm IST
-const TARGET = new Date('2026-03-06T17:00:00+05:30');
+// March 6th 9pm IST
+const TARGET = new Date('2026-03-06T21:00:00+05:30');
 
 function useCountdown() {
   const [remaining, setRemaining] = useState(null);
@@ -102,7 +102,7 @@ export default function CountdownTimer() {
           ))}
         </div>
         <p className="mt-4 sm:mt-5 text-center text-xs sm:text-sm font-medium tracking-wider text-white/60">
-          Launch on <span className="text-[#C9A962]">6th March</span>, <span className="text-[#C9A962]/90">5pm IST</span>
+          Launch on <span className="text-[#C9A962]">6th March</span>, <span className="text-[#C9A962]/90">9pm IST</span>
         </p>
       </m.div>
     </div>
