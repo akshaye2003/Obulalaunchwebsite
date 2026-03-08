@@ -11,6 +11,7 @@ import PageLoading from './components/PageLoading.jsx';
 import SplashScreen from './components/SplashScreen.jsx';
 
 const Landing = lazy(() => import('./pages/Landing.jsx'));
+const About = lazy(() => import('./pages/About.jsx'));
 const SignUp = lazy(() => import('./pages/SignUp.jsx'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword.jsx'));
 const ResetPassword = lazy(() => import('./pages/ResetPassword.jsx'));
@@ -20,6 +21,9 @@ const Editor = lazy(() => import('./pages/Editor.jsx'));
 const Processing = lazy(() => import('./pages/Processing.jsx'));
 const Contact = lazy(() => import('./pages/Contact.jsx'));
 const Pricing = lazy(() => import('./pages/Pricing.jsx'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.jsx'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService.jsx'));
+const RefundPolicy = lazy(() => import('./pages/RefundPolicy.jsx'));
 const CompleteProfile = lazy(() => import('./pages/CompleteProfile.jsx'));
 const Admin = lazy(() => import('./pages/Admin.jsx'));
 const MyVideos = lazy(() => import('./pages/MyVideos.jsx'));
@@ -41,7 +45,11 @@ export default function App() {
                   <Route index element={<Suspense fallback={<PageLoading />}><Landing /></Suspense>} />
                   <Route path="login" element={<Navigate to="/" replace />} />
                   <Route path="signup" element={<Suspense fallback={<PageLoading />}><SignUp /></Suspense>} />
+                  <Route path="about" element={<Suspense fallback={<PageLoading />}><About /></Suspense>} />
                   <Route path="contact" element={<Suspense fallback={<PageLoading />}><Contact /></Suspense>} />
+                  <Route path="privacy" element={<Suspense fallback={<PageLoading />}><PrivacyPolicy /></Suspense>} />
+                  <Route path="terms" element={<Suspense fallback={<PageLoading />}><TermsOfService /></Suspense>} />
+                  <Route path="refund" element={<Suspense fallback={<PageLoading />}><RefundPolicy /></Suspense>} />
                   <Route path="complete-profile" element={<Suspense fallback={<PageLoading />}><CompleteProfile /></Suspense>} />
                   <Route path="pricing" element={<Suspense fallback={<PageLoading />}><Pricing /></Suspense>} />
                   <Route path="forgot-password" element={<Suspense fallback={<PageLoading />}><ForgotPassword /></Suspense>} />
