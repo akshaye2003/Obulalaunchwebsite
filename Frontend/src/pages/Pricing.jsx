@@ -514,52 +514,12 @@ export default function Pricing() {
                   ))}
                 </div>
 
-                {isAuthenticated ? (
-                  <div className="flex flex-col gap-3">
-                    <motion.button
-                      type="button"
-                      onClick={() => handleRazorpayBuy(plan)}
-                      disabled={buying !== null}
-                      className="w-full font-semibold rounded-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed relative z-10 touch-manipulation py-3 text-sm"
-                      style={plan.highlight 
-                        ? {
-                            background: 'linear-gradient(135deg, #C9A962 0%, #D4AF37 100%)',
-                            color: '#0A0A0C',
-                            boxShadow: '0 4px 20px rgba(201,169,98,0.4)',
-                          }
-                        : {
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            color: 'white',
-                          }
-                      }
-                      whileHover={!buying ? { 
-                        scale: 1.02,
-                        boxShadow: plan.highlight
-                          ? '0 6px 30px rgba(201,169,98,0.6)' 
-                          : '0 4px 20px rgba(255,255,255,0.1)'
-                      } : {}}
-                      whileTap={!buying ? { scale: 0.98 } : {}}
-                    >
-                      {buying === plan.id ? 'Opening…' : `Pay with Razorpay ${plan.price}`}
-                    </motion.button>
-                    <motion.button
-                      type="button"
-                      onClick={() => handlePhonePeBuy(plan)}
-                      disabled={buying !== null}
-                      className="w-full font-semibold rounded-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed relative z-10 touch-manipulation py-3 text-sm bg-[#5F259F] text-white hover:bg-[#4a1d7a]"
-                      whileHover={!buying ? { scale: 1.02 } : {}}
-                      whileTap={!buying ? { scale: 0.98 } : {}}
-                    >
-                      {buying === plan.id ? 'Opening…' : `Pay with PhonePe ${plan.price}`}
-                    </motion.button>
-                  </div>
-                ) : (
+                <div className="flex flex-col gap-3">
                   <motion.button
                     type="button"
-                    onClick={() => navigate('/upload')}
-                    className={`w-full font-semibold rounded-xl transition-all relative z-10 touch-manipulation ${
-                      isMobile ? 'py-3.5 text-sm' : 'py-4 text-base'
-                    }`}
+                    onClick={() => handleRazorpayBuy(plan)}
+                    disabled={buying !== null}
+                    className="w-full font-semibold rounded-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed relative z-10 touch-manipulation py-3 text-sm"
                     style={plan.highlight 
                       ? {
                           background: 'linear-gradient(135deg, #C9A962 0%, #D4AF37 100%)',
@@ -571,12 +531,27 @@ export default function Pricing() {
                           color: 'white',
                         }
                     }
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={!buying ? { 
+                      scale: 1.02,
+                      boxShadow: plan.highlight
+                        ? '0 6px 30px rgba(201,169,98,0.6)' 
+                        : '0 4px 20px rgba(255,255,255,0.1)'
+                    } : {}}
+                    whileTap={!buying ? { scale: 0.98 } : {}}
                   >
-                    Get started
+                    {buying === plan.id ? 'Opening…' : `Pay with Razorpay ${plan.price}`}
                   </motion.button>
-                )}
+                  <motion.button
+                    type="button"
+                    onClick={() => handlePhonePeBuy(plan)}
+                    disabled={buying !== null}
+                    className="w-full font-semibold rounded-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed relative z-10 touch-manipulation py-3 text-sm bg-[#5F259F] text-white hover:bg-[#4a1d7a]"
+                    whileHover={!buying ? { scale: 1.02 } : {}}
+                    whileTap={!buying ? { scale: 0.98 } : {}}
+                  >
+                    {buying === plan.id ? 'Opening…' : `Pay with PhonePe ${plan.price}`}
+                  </motion.button>
+                </div>
               </m.div>
             );
             })}
