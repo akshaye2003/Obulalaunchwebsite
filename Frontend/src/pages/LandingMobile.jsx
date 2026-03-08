@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { m as M, AnimatePresence } from 'framer-motion';
 import { useInView } from '../hooks/useInView.js';
 import ObulaLogo from '../components/ObulaLogo.jsx';
-import CountdownTimer from '../components/CountdownTimer.jsx';
+
 import {
   HERO,
   SECTIONS,
@@ -239,7 +239,7 @@ export default function LandingMobile() {
     <div className="relative overflow-x-hidden">
       {/* HERO */}
       <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-5 pt-28 pb-16 text-center">
-        <CountdownTimer />
+
         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-white/[0.06] border border-[#C9A962]/30 text-white/90 mb-6">
           <span className="w-2 h-2 rounded-full bg-[#C9A962] animate-pulse" />
           {HERO.badge}
@@ -574,6 +574,9 @@ export default function LandingMobile() {
           <div className="flex flex-wrap justify-center gap-4 text-sm text-muted overflow-visible -translate-x-2">
             <Link to="/pricing">Pricing</Link>
             <Link to="/contact">Contact</Link>
+            <a href="/refund-policy.pdf" target="_blank" rel="noopener noreferrer">Refund</a>
+            <a href="/terms-conditions.pdf" target="_blank" rel="noopener noreferrer">Terms</a>
+            <a href="/privacy-policy.pdf" target="_blank" rel="noopener noreferrer">Privacy</a>
             <span className="text-white/20">·</span>
             <span>© 2025 Obula</span>
             <EasterEgg />
