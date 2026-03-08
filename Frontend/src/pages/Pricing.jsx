@@ -17,6 +17,17 @@ function loadRazorpayScript() {
   });
 }
 
+function loadPhonePeScript() {
+  return new Promise((resolve) => {
+    if (window.PhonePeCheckout) { resolve(true); return; }
+    const s = document.createElement('script');
+    s.src = 'https://mercury.phonepe.com/web/bundle/checkout.js';
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);
+    document.body.appendChild(s);
+  });
+}
+
 const PLANS = [
   {
     id: 1,
@@ -180,7 +191,7 @@ export default function Pricing() {
   const [cardsInView, setCardsInView] = useState([false, false]);
   const [selectedPlanId, setSelectedPlanId] = useState(1);
 
-  const handleBuy = async (plan) => {
+  const handleRazorpayBuy = async (plan) => {
     if (!isAuthenticated) {
       navigate('/upload');
       return;
@@ -198,7 +209,7 @@ export default function Pricing() {
 
     let order;
     try {
-      const { data } = await apiClient.post('/api/payments/create-order', { plan: plan.id });
+      const { data } = await apiClient.post('/api/payments/create-order', { plan: plan.id, gateway: 'razorpay' });
       order = data;
     } catch (err) {
       setError(err?.response?.data?.detail || 'Failed to create order. Try again.');
@@ -222,6 +233,7 @@ export default function Pricing() {
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_order_id: response.razorpay_order_id,
             razorpay_signature: response.razorpay_signature,
+            gateway: 'razorpay',
           });
           await refreshProfile();
           setSuccess(plan);
@@ -239,6 +251,37 @@ export default function Pricing() {
       setBuying(null);
     });
     rzp.open();
+  };
+
+  const handlePhonePeBuy = async (plan) => {
+    if (!isAuthenticated) {
+      navigate('/upload');
+      return;
+    }
+
+    setBuying(plan.id);
+    setError('');
+
+    try {
+      // Create order via backend
+      const { data } = await apiClient.post('/api/payments/create-order', { 
+        plan: plan.id, 
+        gateway: 'phonepe' 
+      });
+      
+      // Redirect to PhonePe
+      if (data.redirectUrl) {
+        window.location.href = data.redirectUrl;
+      } else if (data.paymentUrl) {
+        window.location.href = data.paymentUrl;
+      } else {
+        setError('Payment initialization failed. Try again.');
+        setBuying(null);
+      }
+    } catch (err) {
+      setError(err?.response?.data?.detail || 'Failed to initialize PhonePe payment. Try again.');
+      setBuying(null);
+    }
   };
 
   const credits = profile?.credits ?? 0;
@@ -471,34 +514,69 @@ export default function Pricing() {
                   ))}
                 </div>
 
-                <motion.button
-                  type="button"
-                  onClick={() => handleBuy(plan)}
-                  disabled={buying !== null}
-                  className={`w-full font-semibold rounded-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed relative z-10 touch-manipulation ${
-                    isMobile ? 'py-3.5 text-sm' : 'py-4 text-base'
-                  }`}
-                  style={!isAuthenticated || plan.highlight 
-                    ? {
-                        background: 'linear-gradient(135deg, #C9A962 0%, #D4AF37 100%)',
-                        color: '#0A0A0C',
-                        boxShadow: '0 4px 20px rgba(201,169,98,0.4)',
+                {isAuthenticated ? (
+                  <div className="flex flex-col gap-3">
+                    <motion.button
+                      type="button"
+                      onClick={() => handleRazorpayBuy(plan)}
+                      disabled={buying !== null}
+                      className="w-full font-semibold rounded-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed relative z-10 touch-manipulation py-3 text-sm"
+                      style={plan.highlight 
+                        ? {
+                            background: 'linear-gradient(135deg, #C9A962 0%, #D4AF37 100%)',
+                            color: '#0A0A0C',
+                            boxShadow: '0 4px 20px rgba(201,169,98,0.4)',
+                          }
+                        : {
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            color: 'white',
+                          }
                       }
-                    : {
-                        border: '1px solid rgba(255,255,255,0.2)',
-                        color: 'white',
-                      }
-                  }
-                  whileHover={!buying ? { 
-                    scale: 1.02,
-                    boxShadow: (!isAuthenticated || plan.highlight)
-                      ? '0 6px 30px rgba(201,169,98,0.6)' 
-                      : '0 4px 20px rgba(255,255,255,0.1)'
-                  } : {}}
-                  whileTap={!buying ? { scale: 0.98 } : {}}
-                >
-                  {buying === plan.id ? 'Opening payment…' : isAuthenticated ? `Buy for ${plan.price}` : 'Get started'}
-                </motion.button>
+                      whileHover={!buying ? { 
+                        scale: 1.02,
+                        boxShadow: plan.highlight
+                          ? '0 6px 30px rgba(201,169,98,0.6)' 
+                          : '0 4px 20px rgba(255,255,255,0.1)'
+                      } : {}}
+                      whileTap={!buying ? { scale: 0.98 } : {}}
+                    >
+                      {buying === plan.id ? 'Opening…' : `Pay with Razorpay ${plan.price}`}
+                    </motion.button>
+                    <motion.button
+                      type="button"
+                      onClick={() => handlePhonePeBuy(plan)}
+                      disabled={buying !== null}
+                      className="w-full font-semibold rounded-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed relative z-10 touch-manipulation py-3 text-sm bg-[#5F259F] text-white hover:bg-[#4a1d7a]"
+                      whileHover={!buying ? { scale: 1.02 } : {}}
+                      whileTap={!buying ? { scale: 0.98 } : {}}
+                    >
+                      {buying === plan.id ? 'Opening…' : `Pay with PhonePe ${plan.price}`}
+                    </motion.button>
+                  </div>
+                ) : (
+                  <motion.button
+                    type="button"
+                    onClick={() => navigate('/upload')}
+                    className={`w-full font-semibold rounded-xl transition-all relative z-10 touch-manipulation ${
+                      isMobile ? 'py-3.5 text-sm' : 'py-4 text-base'
+                    }`}
+                    style={plan.highlight 
+                      ? {
+                          background: 'linear-gradient(135deg, #C9A962 0%, #D4AF37 100%)',
+                          color: '#0A0A0C',
+                          boxShadow: '0 4px 20px rgba(201,169,98,0.4)',
+                        }
+                      : {
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          color: 'white',
+                        }
+                    }
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Get started
+                  </motion.button>
+                )}
               </m.div>
             );
             })}
@@ -527,6 +605,12 @@ export default function Pricing() {
               <span>Secure payments</span>
             </div>
             <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-[#5F259F]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              <span>PhonePe Accepted</span>
+            </div>
+            <div className="flex items-center gap-2">
               <svg className="w-4 h-4 text-[#C9A962]" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 001-1l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clipRule="evenodd" />
               </svg>
@@ -535,7 +619,7 @@ export default function Pricing() {
           </motion.div>
 
           <p className={`text-center text-white/30 text-sm ${isMobile ? 'mt-4' : 'mt-6'}`}>
-            Powered by Razorpay ·{' '}
+            Powered by Razorpay & PhonePe ·{' '}
             <Link to="/contact" className="text-white/50 hover:text-white transition">Questions?</Link>
           </p>
         </m.div>
