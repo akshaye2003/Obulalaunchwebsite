@@ -8,7 +8,6 @@ import ObulaLogo from '../components/ObulaLogo.jsx';
 import ScrollDownIndicator from '../components/ScrollDownIndicator.jsx';
 import MagneticButton from '../components/MagneticButton.jsx';
 import SplitTextHero from '../components/SplitTextHero.jsx';
-
 import { BlurReveal } from '../components/ScrollReveal.jsx';
 import { spring, viewportOnce } from '../lib/motion.js';
 import {
@@ -235,7 +234,6 @@ export default function LandingDesktop() {
           ref={heroRef}
           className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-36 sm:pt-40 pb-24 text-center min-h-[calc(100vh-5rem)]"
         >
-
           <M.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={heroInView ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -718,16 +716,17 @@ export default function LandingDesktop() {
         </div>
       </section>
 
-      <footer className="py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <ObulaLogo size="sm" />
-          <div className="flex items-center gap-8 text-sm text-muted">
+          <div className="flex items-center gap-6 text-sm text-muted">
             <Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <a href="/refund-policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Refund Policy</a>
-            <a href="/terms-conditions.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Terms</a>
-            <a href="/privacy-policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Privacy</a>
-            <span className="text-white/20">·</span>
+            <a href="/policies/refund-policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Refund Policy</a>
+            <a href="/policies/terms-of-service.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Terms</a>
+            <a href="/policies/privacy-policy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Privacy</a>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted">
             <span>© 2025 Obula</span>
             <EasterEgg />
           </div>

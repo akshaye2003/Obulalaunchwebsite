@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { m as M, AnimatePresence } from 'framer-motion';
 import { useInView } from '../hooks/useInView.js';
 import ObulaLogo from '../components/ObulaLogo.jsx';
-
 import {
   HERO,
   SECTIONS,
@@ -239,7 +238,6 @@ export default function LandingMobile() {
     <div className="relative overflow-x-hidden">
       {/* HERO */}
       <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-5 pt-28 pb-16 text-center">
-
         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-white/[0.06] border border-[#C9A962]/30 text-white/90 mb-6">
           <span className="w-2 h-2 rounded-full bg-[#C9A962] animate-pulse" />
           {HERO.badge}
@@ -567,17 +565,18 @@ export default function LandingMobile() {
         </div>
       </section>
 
-      {/* FOOTER — extra bottom padding for EasterEgg tooltip */}
-      <footer className="pt-10 pb-14 px-5 overflow-visible">
+      {/* FOOTER */}
+      <footer className="pt-10 pb-14 px-5 overflow-visible border-t border-white/[0.06]">
         <div className="flex flex-col items-center gap-6 text-center">
           <ObulaLogo size="sm" />
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-muted overflow-visible -translate-x-2">
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-muted">
             <Link to="/pricing">Pricing</Link>
             <Link to="/contact">Contact</Link>
-            <a href="/refund-policy.pdf" target="_blank" rel="noopener noreferrer">Refund</a>
-            <a href="/terms-conditions.pdf" target="_blank" rel="noopener noreferrer">Terms</a>
-            <a href="/privacy-policy.pdf" target="_blank" rel="noopener noreferrer">Privacy</a>
-            <span className="text-white/20">·</span>
+            <a href="/policies/refund-policy.pdf" target="_blank" rel="noopener noreferrer">Refund Policy</a>
+            <a href="/policies/terms-of-service.pdf" target="_blank" rel="noopener noreferrer">Terms</a>
+            <a href="/policies/privacy-policy.pdf" target="_blank" rel="noopener noreferrer">Privacy</a>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted">
             <span>© 2025 Obula</span>
             <EasterEgg />
           </div>
