@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
@@ -8,7 +8,6 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import AdminRoute from './components/AdminRoute.jsx';
 import PageTransitionLayout from './components/PageTransitionLayout.jsx';
 import PageLoading from './components/PageLoading.jsx';
-import SplashScreen from './components/SplashScreen.jsx';
 
 const Landing = lazy(() => import('./pages/Landing.jsx'));
 const About = lazy(() => import('./pages/About.jsx'));
@@ -29,15 +28,11 @@ const Admin = lazy(() => import('./pages/Admin.jsx'));
 const MyVideos = lazy(() => import('./pages/MyVideos.jsx'));
 
 export default function App() {
-  const [splashDone, setSplashDone] = useState(false);
-
   return (
-    <>
-      {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
+    <LazyMotion features={domAnimation} strict>
       <ThemeProvider>
-      <AuthProvider>
-        <ScrollProvider>
-          <LazyMotion features={domAnimation} strict>
+        <AuthProvider>
+          <ScrollProvider>
             <BrowserRouter>
               <Routes>
                 <Route element={<PageTransitionLayout />}>
@@ -94,10 +89,9 @@ export default function App() {
                 </Route>
               </Routes>
             </BrowserRouter>
-          </LazyMotion>
-        </ScrollProvider>
-      </AuthProvider>
+          </ScrollProvider>
+        </AuthProvider>
       </ThemeProvider>
-    </>
+    </LazyMotion>
   );
 }
