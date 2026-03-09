@@ -229,6 +229,13 @@ export default function LandingDesktop() {
 
   return (
     <div className="relative overflow-x-hidden">
+      {/* COMING SOON BANNER */}
+      <div className="w-full bg-gradient-to-r from-[#C9A962]/20 via-[#C9A962]/10 to-[#C9A962]/20 border-y border-[#C9A962]/30 py-3">
+        <p className="text-center text-[#C9A962] font-semibold tracking-widest uppercase text-sm">
+          🚀 Coming Soon — Launching April 2025
+        </p>
+      </div>
+
       <section className="relative min-h-screen flex flex-col">
         <M.div
           ref={heroRef}

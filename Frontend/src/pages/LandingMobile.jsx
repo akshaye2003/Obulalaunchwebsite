@@ -283,6 +283,13 @@ export default function LandingMobile() {
         </div>
       </section>
 
+      {/* COMING SOON BANNER */}
+      <div className="w-full bg-gradient-to-r from-[#C9A962]/20 via-[#C9A962]/10 to-[#C9A962]/20 border-y border-[#C9A962]/30 py-3">
+        <p className="text-center text-[#C9A962] font-semibold tracking-widest uppercase text-xs">
+          🚀 Coming Soon — April 2025
+        </p>
+      </div>
+
       {/* FEATURES */}
       <section className="relative py-16 px-5">
         <p className="text-muted text-xs font-medium uppercase tracking-widest mb-3 text-center">{SECTIONS.features.label}</p>
