@@ -229,18 +229,23 @@ export default function LandingDesktop() {
 
   return (
     <div className="relative overflow-x-hidden">
-      {/* COMING SOON BANNER */}
-      <div className="w-full bg-gradient-to-r from-[#C9A962]/20 via-[#C9A962]/10 to-[#C9A962]/20 border-y border-[#C9A962]/30 py-3">
-        <p className="text-center text-[#C9A962] font-semibold tracking-widest uppercase text-sm">
-          🚀 Coming Soon — Launching April 2025
-        </p>
-      </div>
-
       <section className="relative min-h-screen flex flex-col">
         <M.div
           ref={heroRef}
           className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-36 sm:pt-40 pb-24 text-center min-h-[calc(100vh-5rem)]"
         >
+          {/* COMING SOON - above badge */}
+          <M.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ ...spring.bouncy, delay: 0.02 }}
+            className="mb-3"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-[#C9A962]/20 border border-[#C9A962]/50 text-[#C9A962] shadow-[0_0_20px_rgba(201,169,98,0.3)]">
+              🚀 Coming Soon
+            </span>
+          </M.div>
+
           <M.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={heroInView ? { opacity: 1, y: 0, scale: 1 } : {}}

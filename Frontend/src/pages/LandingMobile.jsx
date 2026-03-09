@@ -238,6 +238,11 @@ export default function LandingMobile() {
     <div className="relative overflow-x-hidden">
       {/* HERO */}
       <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-5 pt-28 pb-16 text-center">
+        {/* COMING SOON - above badge */}
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold bg-[#C9A962]/20 border border-[#C9A962]/50 text-[#C9A962] shadow-[0_0_15px_rgba(201,169,98,0.3)] mb-3">
+          🚀 Coming Soon
+        </span>
+
         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-white/[0.06] border border-[#C9A962]/30 text-white/90 mb-6">
           <span className="w-2 h-2 rounded-full bg-[#C9A962] animate-pulse" />
           {HERO.badge}
@@ -282,13 +287,6 @@ export default function LandingMobile() {
           </span>
         </div>
       </section>
-
-      {/* COMING SOON BANNER */}
-      <div className="w-full bg-gradient-to-r from-[#C9A962]/20 via-[#C9A962]/10 to-[#C9A962]/20 border-y border-[#C9A962]/30 py-3">
-        <p className="text-center text-[#C9A962] font-semibold tracking-widest uppercase text-xs">
-          🚀 Coming Soon — April 2025
-        </p>
-      </div>
 
       {/* FEATURES */}
       <section className="relative py-16 px-5">
