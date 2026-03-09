@@ -234,17 +234,26 @@ export default function LandingDesktop() {
           ref={heroRef}
           className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-36 sm:pt-40 pb-24 text-center min-h-[calc(100vh-5rem)]"
         >
-          {/* COMING SOON - above badge */}
-          <M.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+          {/* COMING SOON - big glowing headline */}
+          <M.h1
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={heroInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ ...spring.bouncy, delay: 0.02 }}
-            className="mb-3"
+            className="mb-6 text-center"
+            style={{
+              fontSize: 'clamp(48px, 8vw, 96px)',
+              fontWeight: 800,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              background: 'linear-gradient(135deg, #F0E6C8 0%, #C9A962 30%, #D4AF37 50%, #C9A962 70%, #F0E6C8 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              filter: 'drop-shadow(0 0 30px rgba(201,169,98,0.6)) drop-shadow(0 0 60px rgba(212,175,55,0.4))',
+            }}
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-[#C9A962]/20 border border-[#C9A962]/50 text-[#C9A962] shadow-[0_0_20px_rgba(201,169,98,0.3)]">
-              🚀 Coming Soon
-            </span>
-          </M.div>
+            Coming Soon
+          </M.h1>
 
           <M.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}

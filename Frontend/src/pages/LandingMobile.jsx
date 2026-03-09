@@ -238,10 +238,23 @@ export default function LandingMobile() {
     <div className="relative overflow-x-hidden">
       {/* HERO */}
       <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-5 pt-28 pb-16 text-center">
-        {/* COMING SOON - above badge */}
-        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold bg-[#C9A962]/20 border border-[#C9A962]/50 text-[#C9A962] shadow-[0_0_15px_rgba(201,169,98,0.3)] mb-3">
-          🚀 Coming Soon
-        </span>
+        {/* COMING SOON - big glowing headline */}
+        <h1
+          className="mb-6 text-center"
+          style={{
+            fontSize: 'clamp(40px, 12vw, 72px)',
+            fontWeight: 800,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            background: 'linear-gradient(135deg, #F0E6C8 0%, #C9A962 30%, #D4AF37 50%, #C9A962 70%, #F0E6C8 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            filter: 'drop-shadow(0 0 20px rgba(201,169,98,0.6)) drop-shadow(0 0 40px rgba(212,175,55,0.4))',
+          }}
+        >
+          Coming Soon
+        </h1>
 
         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-white/[0.06] border border-[#C9A962]/30 text-white/90 mb-6">
           <span className="w-2 h-2 rounded-full bg-[#C9A962] animate-pulse" />
