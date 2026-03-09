@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, m } from 'framer-motion';
+import { AnimatePresence, m, LazyMotion, domAnimation } from 'framer-motion';
 
 const PARTICLES = [
   { id:0,  cx:12,  cy:18, r:1.2, delay:0.3, dur:3.4 },
@@ -30,9 +30,10 @@ export default function SplashScreen({ onComplete }) {
   }, []);
 
   return (
-    <AnimatePresence onExitComplete={onComplete}>
-      {!exiting && (
-        <m.div
+    <LazyMotion features={domAnimation} strict>
+      <AnimatePresence onExitComplete={onComplete}>
+        {!exiting && (
+          <m.div
           key="splash"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -291,7 +292,8 @@ export default function SplashScreen({ onComplete }) {
             pointerEvents: 'none',
           }} />
         </m.div>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </LazyMotion>
   );
 }
